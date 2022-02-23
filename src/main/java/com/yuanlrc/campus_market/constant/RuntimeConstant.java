@@ -21,7 +21,11 @@ public class RuntimeConstant {
 			"/error",
 			"/photo/view",
 			"/cpacha/generate_cpacha",
-			"/home/**"
+			"/home/**",
+			// swagger 文档
+			"/swagger-resources/**",
+			"/doc.html",
+		    "/webjars/**"
 		);
 	//后台权限拦截器无需拦截的url
 	public static List<String> authorityExcludePathPatterns = Arrays.asList(
@@ -39,7 +43,10 @@ public class RuntimeConstant {
 			"/system/update_userinfo",
 			"/system/update_pwd",
 			"/photo/view",
-			"/home/**"
+			"/home/**",
+			"/swagger-resources/**",
+			"/doc.html",
+			"/webjars/**"
 		);
 	//前台全局拦截器无需拦截的url
 	public static List<String> homeGlobalExcludePathPatterns = Arrays.asList(
@@ -47,7 +54,10 @@ public class RuntimeConstant {
 			"/admin/**",
 			"/error",
 			"/cpacha/generate_cpacha",
-			"/photo/view"
+			"/photo/view",
+			"/swagger-resources/**",
+			"/doc.html",
+			"/webjars/**"
 		);
 	//前台登录拦截器无需拦截的url
 	public static List<String> homeLoginExcludePathPatterns = Arrays.asList(
@@ -62,6 +72,9 @@ public class RuntimeConstant {
 			"/home/js/**",
 			"/home/css/**",
 			"/home/imgs/**",
-			"/home/student_goods/**"
+			"/home/student_goods/**",
+			"/swagger-resources/**",
+			"/doc.html",
+			"/webjars/**"
 		);
 }

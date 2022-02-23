@@ -1,8 +1,10 @@
 package com.yuanlrc.campus_market.entity.common;
 
 import com.yuanlrc.campus_market.annotion.ValidateEntity;
+import com.yuanlrc.campus_market.entity.admin.User;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -10,56 +12,38 @@ import java.time.LocalDateTime;
  * @description
  * @date 2022/2/22  15:39
  */
-public class Recharge {
+@Entity
+@Table(name="ylrc_recharge")
+@EntityListeners(AuditingEntityListener.class)
+public class Recharge  extends BaseEntity{
 
-    private Long id;
+    // private static final long serialVersionUID = 1L;
 
-    @ValidateEntity(required=true)
-    @Column(name="student_id",nullable=false)
-    private Long studentId;
+    @ManyToOne
+    @JoinColumn(name="student_id")
+    private Student student;
 
-    @ValidateEntity(required=true)
-    @Column(name="user_id",nullable=false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
-    @ValidateEntity(required=true)
-    @Column(name="create_time",nullable=false)
-    private LocalDateTime createTime;
-
-    @ValidateEntity(required=true)
-    @Column(name="amount",nullable=false)
+    @Column(name="amount")
     private Integer amount;
 
-    public Long getId() {
-        return id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public User getUser() {
+        return user;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getAmount() {
@@ -73,10 +57,8 @@ public class Recharge {
     @Override
     public String toString() {
         return "Recharge{" +
-            "id=" + id +
-            ", studentId=" + studentId +
-            ", userId=" + userId +
-            ", createTime=" + createTime +
+            "student=" + student +
+            ", user=" + user +
             ", amount=" + amount +
             '}';
     }

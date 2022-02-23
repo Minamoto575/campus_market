@@ -73,6 +73,17 @@ public class Student extends BaseEntity{
 	@Column(name = "discount_coupon")
 	private int discountCoupon = HAVE_COUPON;//是否有优惠券 默认有优惠券
 
+	@Column(name = "balance")
+	private int balance;
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
 	public String getSn() {
 		return sn;
 	}
@@ -164,17 +175,18 @@ public class Student extends BaseEntity{
 	@Override
 	public String toString() {
 		return "Student{" +
-				"sn='" + sn + '\'' +
-				", password='" + password + '\'' +
-				", headPic='" + headPic + '\'' +
-				", nickname='" + nickname + '\'' +
-				", mobile='" + mobile + '\'' +
-				", qq='" + qq + '\'' +
-				", school='" + school + '\'' +
-				", academy='" + academy + '\'' +
-				", grade='" + grade + '\'' +
-				", status=" + status +
-				", discountCoupon=" + discountCoupon +
-				'}';
+			"sn='" + sn + '\'' +
+			", password='" + password + '\'' +
+			", headPic='" + headPic + '\'' +
+			", nickname='" + nickname + '\'' +
+			", mobile='" + mobile + '\'' +
+			", qq='" + qq + '\'' +
+			", school='" + school + '\'' +
+			", academy='" + academy + '\'' +
+			", grade='" + grade + '\'' +
+			", status=" + status +
+			", discountCoupon=" + discountCoupon +
+			", balance=" + balance +
+			'}';
 	}
 }

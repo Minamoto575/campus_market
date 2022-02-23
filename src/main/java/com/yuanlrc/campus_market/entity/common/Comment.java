@@ -22,7 +22,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
 public class Comment extends BaseEntity{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	
@@ -42,8 +42,7 @@ public class Comment extends BaseEntity{
 	@Column(name="reply_to",length=64)
 	private String replyTo;//回复者
 
-	
-	
+
 	public Student getStudent() {
 		return student;
 	}

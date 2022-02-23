@@ -1,8 +1,9 @@
 package com.yuanlrc.campus_market.entity.common;
 
 import com.yuanlrc.campus_market.annotion.ValidateEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -10,43 +11,27 @@ import java.time.LocalDateTime;
  * @description
  * @date 2022/2/22  15:48
  */
-public class Consumption {
-    private Long id;
+@Entity
+@Table(name="ylrc_consumption")
+@EntityListeners(AuditingEntityListener.class)
+public class Consumption extends BaseEntity {
 
-    @ValidateEntity(required=true)
-    @Column(name="student_id",nullable=false)
-    private Long studentId;
+    private static final long serialVersionUID = 1L;
 
-    @ValidateEntity(required=true)
-    @Column(name="create_time",nullable=false)
-    private LocalDateTime createTime;
+    @ManyToOne
+    @JoinColumn(name="student_id")
+    private Student student;
 
     @ValidateEntity(required=true)
     @Column(name="amount",nullable=false)
     private Integer amount;
 
-    public Long getId() {
-        return id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Integer getAmount() {
@@ -60,9 +45,7 @@ public class Consumption {
     @Override
     public String toString() {
         return "Consumption{" +
-            "id=" + id +
-            ", studentId=" + studentId +
-            ", createTime=" + createTime +
+            "student=" + student +
             ", amount=" + amount +
             '}';
     }
