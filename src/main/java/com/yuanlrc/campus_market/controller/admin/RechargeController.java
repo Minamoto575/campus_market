@@ -1,29 +1,20 @@
 package com.yuanlrc.campus_market.controller.admin;
 
-import com.alibaba.fastjson.JSONArray;
 import com.yuanlrc.campus_market.bean.CodeMsg;
 import com.yuanlrc.campus_market.bean.PageBean;
 import com.yuanlrc.campus_market.bean.Result;
 import com.yuanlrc.campus_market.constant.SessionConstant;
-import com.yuanlrc.campus_market.entity.admin.Menu;
-import com.yuanlrc.campus_market.entity.admin.Role;
 import com.yuanlrc.campus_market.entity.admin.User;
-import com.yuanlrc.campus_market.entity.common.OrderForm;
 import com.yuanlrc.campus_market.entity.common.Recharge;
 import com.yuanlrc.campus_market.entity.common.Student;
 import com.yuanlrc.campus_market.service.admin.UserService;
-import com.yuanlrc.campus_market.service.common.OrderFormService;
 import com.yuanlrc.campus_market.service.common.RechargeService;
 import com.yuanlrc.campus_market.service.common.StudentService;
-import com.yuanlrc.campus_market.util.MenuUtil;
 import com.yuanlrc.campus_market.util.SessionUtil;
-import com.yuanlrc.campus_market.util.ValidateEntityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author kuang
@@ -83,6 +74,25 @@ public class RechargeController {
         model.addAttribute("title", "充值列表");
         model.addAttribute("pageBean", rechargeService.listAll(pageBean));
         return "/admin/recharge/listAll";
+    }
+
+    @GetMapping("/listByStudent")
+    public String listByStudent(Model model, PageBean<Recharge> pageBean,
+                                @RequestParam("studentId") Long studentId){
+        Student student = studentService.findById(studentId);
+        model.addAttribute("title", "消费记录列表");
+        model.addAttribute("studentSn",student.getSn());
+        model.addAttribute("pageBean", rechargeService.listByStudent(pageBean,student));
+        return "/admin/consumption/listByStudent";
+    }
+    @GetMapping("/listByUser")
+    public String listByUser(Model model, PageBean<Recharge> pageBean,
+                                @RequestParam("userId") Long userId){
+        User user = userService.find(userId);
+        model.addAttribute("title", "消费记录列表");
+        model.addAttribute("userName",user.getUsername());
+        model.addAttribute("pageBean", rechargeService.listByUser(pageBean,user));
+        return "/admin/consumption/listByUser";
     }
 
 }

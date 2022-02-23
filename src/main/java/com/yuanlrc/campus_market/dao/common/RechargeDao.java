@@ -2,6 +2,8 @@ package com.yuanlrc.campus_market.dao.common;
 
 import com.yuanlrc.campus_market.entity.admin.User;
 import com.yuanlrc.campus_market.entity.common.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -17,19 +19,5 @@ import java.util.List;
  */
 @Repository
 public interface RechargeDao extends JpaRepository<Recharge,Long>, JpaSpecificationExecutor<Recharge> {
-
-    /**
-     * 根据学生查询
-     * @param student
-     * @return
-     */
-    List<Recharge> findByStudent(Student student);
-
-    /**
-     * 根据操作者查询
-     * @param user
-     * @return
-     */
-    List<Recharge> findByUser(User user);
 
 }

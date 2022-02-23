@@ -10,8 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -41,33 +47,68 @@ public class RechargeService {
     }
 
     /**
-     * @description 根据学生查找充值记录
+     * @description 根据学生分页查找充值记录
+     * @param  pageBean
      * @param student
      * @author kuang
-     * @date 2022/2/22
+     * @date 2022/2/23
      */
-    public List<Recharge> listByStudent(Student student){
-        return rechargeDao.findByStudent(student);
+    public PageBean<Recharge> listByStudent(PageBean<Recharge> pageBean,Student student){
+        Specification<Recharge> specification = new Specification<Recharge>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Recharge> root,
+                                         CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("student_id"), student.getId());
+            }
+        };
+        return list(specification,pageBean);
     }
 
     /**
-     * @description 根据操作者查找充值记录
+     * @description 根据操作者分页查找充值记录
+     * @param  pageBean
      * @param user
      * @author kuang
-     * @date 2022/2/22
+     * @date 2022/2/23
      */
-    public List<Recharge> listByUser(User user){
-        return rechargeDao.findByUser(user);
+    public PageBean<Recharge> listByUser(PageBean<Recharge> pageBean,User user){
+        Specification<Recharge> specification = new Specification<Recharge>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Recharge> root,
+                                         CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("user_id"), user.getId());
+            }
+        };
+        return list(specification,pageBean);
     }
 
     /**
-     * @description 进行充值
+     * @description 插入充值记录
      * @param recharge
      * @author kuang
      * @date 2022/2/22
      */
     public Recharge save(Recharge recharge){
         return rechargeDao.save(recharge);
+    }
+
+    /**
+     * @description 具体条件查询的方法
+     * @param  specification
+     * @param pageBean
+     * @author kuang
+     * @date 2022/2/23
+     */
+    private PageBean<Recharge> list(Specification<Recharge> specification, PageBean<Recharge> pageBean){
+        Sort sort = Sort.by(Sort.Direction.DESC, "id","createTime");
+        PageRequest pageable = PageRequest.of(pageBean.getCurrentPage()-1, pageBean.getPageSize(), sort);
+        Page<Recharge> findAll = rechargeDao.findAll(specification,pageable);
+        pageBean.setContent(findAll.getContent());
+        pageBean.setTotal(findAll.getTotalElements());
+        pageBean.setTotalPage(findAll.getTotalPages());
+        return pageBean;
     }
 
 }
