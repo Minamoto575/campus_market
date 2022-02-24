@@ -3,7 +3,6 @@ package com.yuanlrc.campus_market.service.common;
 import com.yuanlrc.campus_market.bean.PageBean;
 import com.yuanlrc.campus_market.dao.common.RechargeDao;
 import com.yuanlrc.campus_market.entity.admin.User;
-import com.yuanlrc.campus_market.entity.common.OrderForm;
 import com.yuanlrc.campus_market.entity.common.Recharge;
 import com.yuanlrc.campus_market.entity.common.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.List;
 
 /**
  * @author kuang
@@ -59,7 +56,7 @@ public class RechargeService {
             @Override
             public Predicate toPredicate(Root<Recharge> root,
                                          CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("student_id"), student.getId());
+                return criteriaBuilder.equal(root.get("student"), student.getId());
             }
         };
         return list(specification,pageBean);
@@ -78,7 +75,7 @@ public class RechargeService {
             @Override
             public Predicate toPredicate(Root<Recharge> root,
                                          CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("user_id"), user.getId());
+                return criteriaBuilder.equal(root.get("user"), user.getId());
             }
         };
         return list(specification,pageBean);

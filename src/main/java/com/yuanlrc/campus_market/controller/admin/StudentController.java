@@ -28,7 +28,6 @@ public class StudentController {
 	
 	/**
 	 * 学生管理列表页面
-	 * @param name
 	 * @param pageBean
 	 * @param model
 	 * @return
@@ -40,8 +39,6 @@ public class StudentController {
 		model.addAttribute("pageBean", studentService.findlist(pageBean, student));
 		return "admin/student/list";
 	}
-	
-	
 
 	/**
 	 * 学生状态编辑

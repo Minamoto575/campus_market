@@ -3,7 +3,6 @@ package com.yuanlrc.campus_market.service.common;
 import com.yuanlrc.campus_market.bean.PageBean;
 import com.yuanlrc.campus_market.dao.common.ConsumptionDao;
 import com.yuanlrc.campus_market.entity.common.Consumption;
-import com.yuanlrc.campus_market.entity.common.Recharge;
 import com.yuanlrc.campus_market.entity.common.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +15,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.List;
 
 /**
  * @author kuang
@@ -56,7 +54,7 @@ public class ConsumptionService {
             @Override
             public Predicate toPredicate(Root<Consumption> root,
                                          CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("student_id"), student.getId());
+                return criteriaBuilder.equal(root.get("student"), student.getId());
             }
         };
         return list(specification,pageBean);

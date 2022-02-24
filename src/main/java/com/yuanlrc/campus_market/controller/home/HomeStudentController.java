@@ -1,25 +1,21 @@
 package com.yuanlrc.campus_market.controller.home;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.yuanlrc.campus_market.bean.CodeMsg;
 import com.yuanlrc.campus_market.bean.PageBean;
+import com.yuanlrc.campus_market.bean.Result;
+import com.yuanlrc.campus_market.constant.SessionConstant;
 import com.yuanlrc.campus_market.entity.common.*;
 import com.yuanlrc.campus_market.service.common.*;
+import com.yuanlrc.campus_market.util.SessionUtil;
+import com.yuanlrc.campus_market.util.ValidateEntityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.yuanlrc.campus_market.bean.CodeMsg;
-import com.yuanlrc.campus_market.bean.Result;
-import com.yuanlrc.campus_market.constant.SessionConstant;
-import com.yuanlrc.campus_market.util.SessionUtil;
-import com.yuanlrc.campus_market.util.ValidateEntityUtil;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 学生中心控制器
@@ -46,6 +42,13 @@ public class HomeStudentController {
 	private StudentGoodsService studentGoodsService;
 	@Autowired
 	private OrderFormService orderFormService;
+	@Autowired
+	private ConsumptionService consumptionService;
+	@Autowired
+	private RechargeService rechargeService;
+
+	private final static String CONSUMPTION = "consumption";
+	private final static String RECHARGE = "recharge";
 
 	/**
 	 * 学生登录主页
@@ -155,8 +158,33 @@ public class HomeStudentController {
 		return Result.success(true);
 	}
 
+	/**
+	 * @description 查询学生的消费充值记录
+	 * @param  model
+	 * @param  conPageBean
+	 * @param rePageBean
+	 * @author kuang
+	 * @date 2022/2/24
+	 */
+	@GetMapping("/money")
+	public String money(Model model, PageBean<Consumption> conPageBean,PageBean<Recharge> rePageBean,
+						@RequestParam(value="type") String type) {
+		Student student  = (Student) SessionUtil.get(SessionConstant.SESSION_STUDENT_LOGIN_KEY);
+		if(student==null){
+			return "home/index/login";
+		}
+		if(type.equals(CONSUMPTION)){
+			model.addAttribute("pageBean",consumptionService.listByStudent(conPageBean,student));
+			model.addAttribute("type",CONSUMPTION);
+			model.addAttribute("title","消费记录");
+		}else if(type.equals(RECHARGE)){
+			model.addAttribute("pageBean",rechargeService.listByStudent(rePageBean,student));
+			model.addAttribute("type",RECHARGE);
+			model.addAttribute("title","充值记录");
+		}
+		return "home/student/money";
+	}
 
-	
 	/**
 	 * 发布求购图书页面
 	 * @param model
@@ -407,5 +435,7 @@ public class HomeStudentController {
 		}
 		return Result.success(true);
 	}
+
+
 
 }
