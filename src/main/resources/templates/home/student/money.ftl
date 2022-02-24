@@ -6,9 +6,12 @@
     <link rel="icon" href="/home/imgs/favicon.ico" type="image/x-icon">
     <link media="all" href="/home/css/release_product.css" type="text/css" rel="stylesheet">
     <link media="all" href="/home/css/index.css" type="text/css" rel="stylesheet">
+    <#include "../common/header.ftl"/>
 </head>
+
 <body>
 <#include "../common/top_header.ftl"/>
+
 <div class="container">
     <div class="main center">
         <img class="release-icon-main" src="/home/imgs/release-icon.png" alt="">
@@ -25,12 +28,12 @@
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                                    <#if consumption??>消费记录<#elseif recharge??>充值记录<#else>消费记录</#if>
-                                                    <span
-                                                            class="caret"></span>
+                                                    <#if type=="comsumption">消费记录<#elseif
+                                                    type=="recharge">充值记录</#if>
+                                                    <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
-                                                    <li> <a tabindex="-1" href="javascript:void(0)" data-field="consumption">消费记录</a> </li>
+                                                    <li> <a tabindex="-1" href="javascript:void(0)" data-field="turnover">消费记录</a> </li>
                                                     <li> <a tabindex="-1" href="javascript:void(0)" data-field="recharge">充值记录</a> </li>
                                                 </ul>
                                             </div>
@@ -46,25 +49,34 @@
                                                 <th>时间</th>
                                                 <th>充值金额</th>
                                                 <th>购买人(学号)</th>
-                                                <th>操作人</th>
+                                                <#if type=="recharge">
+                                                    <th>操作人</th>
+                                                    <th>充值方式</th>
+                                                </#if>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <#if pageBean.content?size gt 0>
-                                                <#list pageBean.content as consumption>
+                                                <#list pageBean.content as turnover>
                                                     <tr>
                                                         <td style="vertical-align:middle;">
-                                                            ${consumption.createTime}
+                                                            ${turnover.createTime}
                                                         </td>
                                                         <td style="vertical-align:middle;">
-                                                            ￥${consumption.amount}
+                                                            ￥${turnover.amount}
                                                         </td>
                                                         <td style="vertical-align:middle;">
-                                                            ${consumption.student.sn}
+                                                            ${turnover.student.sn}
                                                         </td>
-                                                        <td style="vertical-align:middle;">
-                                                            ${consumption.user.username!""}
-                                                        </td>
+                                                        <#if type=="recharge">
+                                                            <td  style="vertical-align:middle;">
+                                                                ${turnover.user.username!""}
+                                                            </td>
+                                                            <td  style="vertical-align:middle;">
+                                                                ${turnover.type!""}
+                                                            </td>
+                                                        </#if>
+
 
                                                     </tr>
                                                 </#list>
@@ -79,20 +91,19 @@
                                             <#if pageBean.currentPage == 1>
                                                 <li class="disabled"><span>«</span></li>
                                             <#else>
-                                                <li><a href="list?<#if sn??>student.sn<#else>goods.name</#if>=${name!sn!""}&currentPage=1">«</a></li>
+                                                <li><a href="money?type=${type}&currentPage=1">«</a></li>
                                             </#if>
                                             <#list pageBean.currentShowPage as showPage>
                                                 <#if pageBean.currentPage == showPage>
                                                     <li class="active"><span>${showPage}</span></li>
                                                 <#else>
-                                                    <li><a href="list?<#if sn??>student.sn<#else>goods.name</#if>=${name!sn!""}&currentPage=${showPage}">${showPage}</a></li>
+                                                    <li><a href="money?type=${type}&currentPage=${showPage}">${showPage}</a></li>
                                                 </#if>
                                             </#list>
                                             <#if pageBean.currentPage == pageBean.totalPage>
                                                 <li class="disabled"><span>»</span></li>
                                             <#else>
-                                                <li><a href="list?<#if sn??>student.sn<#else>goods
-                                                .name</#if>=${name!sn!""}&currentPage=$ pageBean
+                                                <li><a href="money?type=${type}&currentPage=${pageBean
                                                 .totalPage}">»</a></li>
                                             </#if>
                                             <li><span>共${pageBean.totalPage}页,${pageBean.total}条数据</span></li>

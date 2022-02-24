@@ -80,6 +80,11 @@
 				    <li>账号状态</li>
 				    <li class="right_info"><#if ylrc_student.status == 1>正常<#else>冻结</#if></li>
 				</ul>
+                <ul class="infos" id="userstate">
+                    <li>余额</li>
+                    <li class="right_info">￥${ylrc_student.balance}</li>
+                </ul>
+
 			</div>
             <div id="account_info">
                 <ul class="infos">
@@ -374,4 +379,5 @@ $(document).ready(function(){
     });
 });
 </script>
+</body>
 </html>

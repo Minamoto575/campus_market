@@ -1,11 +1,9 @@
 package com.yuanlrc.campus_market.entity.common;
 
-import com.yuanlrc.campus_market.annotion.ValidateEntity;
 import com.yuanlrc.campus_market.entity.admin.User;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author kuang
@@ -28,7 +26,18 @@ public class Recharge  extends BaseEntity{
     private User user;
 
     @Column(name="amount")
-    private Integer amount;
+    private float amount;
+
+    @Column(name="type")
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Student getStudent() {
         return student;
@@ -46,11 +55,11 @@ public class Recharge  extends BaseEntity{
         this.user = user;
     }
 
-    public Integer getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -60,6 +69,7 @@ public class Recharge  extends BaseEntity{
             "student=" + student +
             ", user=" + user +
             ", amount=" + amount +
+            ", type='" + type + '\'' +
             '}';
     }
 }

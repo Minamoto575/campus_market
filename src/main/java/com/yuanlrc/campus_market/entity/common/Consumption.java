@@ -4,7 +4,6 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author kuang
@@ -24,7 +23,7 @@ public class Consumption extends BaseEntity {
 
     @ValidateEntity(required=true)
     @Column(name="amount",nullable=false)
-    private Integer amount;
+    private float amount;
 
     public Student getStudent() {
         return student;
@@ -34,11 +33,11 @@ public class Consumption extends BaseEntity {
         this.student = student;
     }
 
-    public Integer getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

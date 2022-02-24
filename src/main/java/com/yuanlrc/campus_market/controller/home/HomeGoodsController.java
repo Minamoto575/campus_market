@@ -1,12 +1,10 @@
 package com.yuanlrc.campus_market.controller.home;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.yuanlrc.campus_market.bean.CodeMsg;
+import com.yuanlrc.campus_market.bean.PageBean;
+import com.yuanlrc.campus_market.bean.Result;
 import com.yuanlrc.campus_market.constant.SessionConstant;
-import com.yuanlrc.campus_market.entity.common.OrderForm;
-import com.yuanlrc.campus_market.entity.common.Student;
+import com.yuanlrc.campus_market.entity.common.*;
 import com.yuanlrc.campus_market.service.common.*;
 import com.yuanlrc.campus_market.util.SessionUtil;
 import com.yuanlrc.campus_market.util.ValidateEntityUtil;
@@ -18,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yuanlrc.campus_market.bean.PageBean;
-import com.yuanlrc.campus_market.bean.Result;
-import com.yuanlrc.campus_market.entity.common.Goods;
-import com.yuanlrc.campus_market.entity.common.GoodsCategory;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 前台图书管理控制器
@@ -42,6 +38,10 @@ public class HomeGoodsController {
 	private StudentService studentService;
 	@Autowired
 	private OrderFormService orderFormService;
+	@Autowired
+	private RechargeService rechargeService;
+	@Autowired
+	private ConsumptionService consumptionService;
 
 	/**
 	 * 图书详情页面
@@ -122,15 +122,14 @@ public class HomeGoodsController {
 	 */
 	@RequestMapping("/to_buy")
 	public String toBuy(Model model,@RequestParam(name="goodsId",required=true)Long goodsId){
-		Student loginedStudent = (Student) SessionUtil.get(SessionConstant.SESSION_STUDENT_LOGIN_KEY);
-		if(loginedStudent == null){
+		Student student = (Student) SessionUtil.get(SessionConstant.SESSION_STUDENT_LOGIN_KEY);
+		if(student == null){
 			return "redirect:home/index/login";
 		}
 		Goods goods = goodsService.findById(goodsId);
 		if(goods == null){
 			return "redirect:home/index/index";
 		}
-		Student student = studentService.findById(loginedStudent.getId());
 		model.addAttribute("student",student);
 		model.addAttribute("goods",goods);
 		return "home/goods/to_buy";
@@ -172,10 +171,23 @@ public class HomeGoodsController {
 
 		orderForm.setSellPrice(goods.getSellPrice());
 
+		//余额不足
+		if(student.getBalance()<goods.getSellPrice()){
+			//
+		}
+
 
 		if(orderFormService.save(orderForm,student,discountType,goods) == null){
 			return Result.error(CodeMsg.HOME_ORDER_FORM_SAVE_ERROR);
 		}
+
+		//扣余额 新增记录交易
+		student.setBalance(student.getBalance()-goods.getBuyPrice());
+		studentService.save(student);
+		Consumption consumption = new Consumption();
+		consumption.setStudent(student);
+		consumption.setAmount(goods.getBuyPrice());
+		consumptionService.save(consumption);
 
 		return Result.success(true);
 	}

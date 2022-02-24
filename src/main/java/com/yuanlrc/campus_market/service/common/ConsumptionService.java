@@ -79,7 +79,7 @@ public class ConsumptionService {
      * @date 2022/2/23
      */
     private PageBean<Consumption> list(Specification<Consumption> specification, PageBean<Consumption> pageBean){
-        Sort sort = Sort.by(Sort.Direction.DESC, "id","createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime","id");
         PageRequest pageable = PageRequest.of(pageBean.getCurrentPage()-1, pageBean.getPageSize(), sort);
         Page<Consumption> findAll = consumptionDao.findAll(specification,pageable);
         pageBean.setContent(findAll.getContent());

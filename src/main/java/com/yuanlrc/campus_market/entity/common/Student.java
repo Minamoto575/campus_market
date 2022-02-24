@@ -1,13 +1,12 @@
 package com.yuanlrc.campus_market.entity.common;
 
+import com.yuanlrc.campus_market.annotion.ValidateEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.yuanlrc.campus_market.annotion.ValidateEntity;
 
 /**
  * 学生实体类
@@ -74,13 +73,13 @@ public class Student extends BaseEntity{
 	private int discountCoupon = HAVE_COUPON;//是否有优惠券 默认有优惠券
 
 	@Column(name = "balance")
-	private int balance;
+	private float balance;
 
-	public int getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
