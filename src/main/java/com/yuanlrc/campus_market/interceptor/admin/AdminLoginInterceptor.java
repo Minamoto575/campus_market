@@ -1,27 +1,25 @@
 package com.yuanlrc.campus_market.interceptor.admin;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.yuanlrc.campus_market.config.AppConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
-
 import com.alibaba.fastjson.JSON;
 import com.yuanlrc.campus_market.bean.CodeMsg;
+import com.yuanlrc.campus_market.config.AppConfig;
 import com.yuanlrc.campus_market.config.SiteConfig;
 import com.yuanlrc.campus_market.constant.SessionConstant;
 import com.yuanlrc.campus_market.entity.admin.Menu;
 import com.yuanlrc.campus_market.entity.admin.User;
 import com.yuanlrc.campus_market.util.MenuUtil;
 import com.yuanlrc.campus_market.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 后台登录拦截器
@@ -70,7 +68,10 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 			//若不是ajax请求，则将菜单信息放入页面模板变量
 			User user = (User)attribute;
 			List<Menu> authorities = user.getRole().getAuthorities();
+
 			request.setAttribute("userTopMenus", MenuUtil.getTopMenus(authorities));
+
+
 			List<Menu> secondMenus = MenuUtil.getSecondMenus(user.getRole().getAuthorities());
 			request.setAttribute("userSecondMenus", secondMenus);
 			request.setAttribute("userThirdMenus", MenuUtil.getChildren(MenuUtil.getMenuIdByUrl(requestURI,secondMenus),authorities));

@@ -1,9 +1,9 @@
 package com.yuanlrc.campus_market.util;
 
+import com.yuanlrc.campus_market.entity.admin.Menu;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.yuanlrc.campus_market.entity.admin.Menu;
 
 /**
  * 菜单工具类

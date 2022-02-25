@@ -176,11 +176,9 @@ public class HomeStudentController {
 		if(type.equals(CONSUMPTION)){
 			model.addAttribute("pageBean",consumptionService.listByStudent(conPageBean,student));
 			model.addAttribute("type",CONSUMPTION);
-			model.addAttribute("title","消费记录");
 		}else if(type.equals(RECHARGE)){
 			model.addAttribute("pageBean",rechargeService.listByStudent(rePageBean,student));
 			model.addAttribute("type",RECHARGE);
-			model.addAttribute("title","充值记录");
 		}
 		return "home/student/money";
 	}

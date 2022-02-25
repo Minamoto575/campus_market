@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, goodsCategory-scalable=no"/>
-    <title>${siteName!""}|订单管理-${title!""}</title>
+    <title>${siteName!""}|消费记录-${title!""}</title>
 
     <#include "../common/header.ftl"/>
     <style>
@@ -73,56 +73,24 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>图片</th>
-                                            <th>名称</th>
-                                            <th>分类</th>
+                                            <th>消费时间</th>
+                                            <th>消费金额</th>
                                             <th>购买人(学号)</th>
-                                            <th>手机号</th>
-                                            <th>QQ号</th>
-                                            <th>地址</th>
-                                            <th>售价</th>
-                                            <th>是否使用优惠券</th>
-                                            <th>支付价格</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <#if pageBean.content?size gt 0>
-                                            <#list pageBean.content as orderForm>
+                                            <#list pageBean.content as consumption>
                                                 <tr>
+
                                                     <td style="vertical-align:middle;">
-                                                        <img src="/photo/view?filename=${orderForm.goods.photo}"
-                                                             width="30px" height="30px">
+                                                        ${consumption.createTime}
                                                     </td>
                                                     <td style="vertical-align:middle;">
-                                                        ${orderForm.goods.name}
+                                                        ￥${consumption.amount}
                                                     </td>
                                                     <td style="vertical-align:middle;">
-                                                        ${orderForm.goods.goodsCategory.name}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.student.sn}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.student.mobile!""}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.student.qq!""}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.place!""}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.sellPrice!""}
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        <#if orderForm.isUse == 1>
-                                                            是
-                                                        <#else>
-                                                            否
-                                                        </#if>
-                                                    </td>
-                                                    <td style="vertical-align:middle;">
-                                                        ${orderForm.payPrice!""}
+                                                        ${consumption.student.sn}
                                                     </td>
                                                 </tr>
                                             </#list>
@@ -140,7 +108,8 @@
                                             <li class="disabled"><span>«</span></li>
                                         <#else>
                                             <li>
-                                                <a href="list?<#if sn??>student.sn<#else>goods.name</#if>=${name!sn!""}&currentPage=1">«</a>
+                                                <a href="consumption?<#if sn??>student.sn<#else>goods
+                                                .name</#if>=${name!sn!""}&currentPage=1">«</a>
                                             </li>
                                         </#if>
                                         <#list pageBean.currentShowPage as showPage>
