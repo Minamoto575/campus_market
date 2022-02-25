@@ -7,14 +7,14 @@
     <link media="all" href="/home/css/release_product.css" type="text/css" rel="stylesheet">
     <link media="all" href="/home/css/index.css" type="text/css" rel="stylesheet">
     <style>
-        .ensure_to_buy_button{
-            background-color:#0FB25F;
+        .ensure_to_buy_button {
+            background-color: #0FB25F;
             width: 24%;
             height: 45px;
             margin-left: 28.3%;
             margin-top: 30px;
             color: white;
-            cursor:pointer;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -22,7 +22,7 @@
 <#include "../common/top_header.ftl"/>
 <div class="container">
     <div class="main center">
-        <form id="publish-form" >
+        <form id="publish-form">
             <div class="form-wr">
                 <div class="form-must-wr">
 
@@ -34,7 +34,8 @@
                             <span>图书图片</span></div>
                         <div class="form-value">
                             <div class="form-input-wr">
-                                <img id="uploaded-img" src="/photo/view?filename=${goods.photo}" width="100px" height="100px">
+                                <img id="uploaded-img" src="/photo/view?filename=${goods.photo}" width="100px"
+                                     height="100px">
                             </div>
                         </div>
                     </div>
@@ -54,7 +55,7 @@
                         <div class="form-value">
                             <div class="form-input-wr">
                                     <textarea placeholder="建议填写图书用途、新旧程度、原价等信息，至少15个字" class="required"
-                                               id="desc" disabled>${goods.content}</textarea>
+                                              id="desc" disabled>${goods.content}</textarea>
                             </div>
                         </div>
                     </div>
@@ -64,7 +65,7 @@
                             <span>售价</span></div>
                         <div class="form-value">
                             <div class="form-input-wr">
-                                <input class="price required" value="${goods.sellPrice}" type="number"  readonly></div>
+                                <input class="price required" value="${goods.sellPrice}" type="number" readonly></div>
                         </div>
                     </div>
 
@@ -75,26 +76,33 @@
                         </div>
                         <div class="form-value">
                             <div class="form-input-wr">
-                                <select id="cid" style="width: 40%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;" disabled>
+                                <select id="cid"
+                                        style="width: 40%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;"
+                                        disabled>
                                     <option>---请选择大类----</option>
                                     <#if goodsCategorys??>
                                         <#list goodsCategorys as goodsCategory>
                                             <#if goodsCategory.parent??>
                                             <#else>
-                                                <option value="${goodsCategory.id}" <#if goods.goodsCategory.parent.id == goodsCategory.id>selected</#if> >${goodsCategory.name}</option>
+                                                <option value="${goodsCategory.id}"
+                                                        <#if goods.goodsCategory.parent.id == goodsCategory.id>selected</#if> >${goodsCategory.name}</option>
                                             </#if>
                                         </#list>
                                     </#if>
                                 </select>
-                                <select id="cid2" name="goodsCategory.id" style="width: 40%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;" disabled>
+                                <select id="cid2" name="goodsCategory.id"
+                                        style="width: 40%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;"
+                                        disabled>
                                     <option value="-1">----请选择小类----</option>
                                     <#if goodsCategorys??>
                                         <#list goodsCategorys as goodsCategory>
                                             <#if goodsCategory.parent??>
                                                 <#if goodsCategory.parent.id == goods.goodsCategory.parent.id>
-                                                    <option value="${goodsCategory.id}" pid="${goodsCategory.parent.id}" <#if goods.goodsCategory.id == goodsCategory.id>selected</#if>>${goodsCategory.name}</option>
+                                                    <option value="${goodsCategory.id}" pid="${goodsCategory.parent.id}"
+                                                            <#if goods.goodsCategory.id == goodsCategory.id>selected</#if>>${goodsCategory.name}</option>
                                                 <#else>
-                                                    <option style="display:none;" value="${goodsCategory.id}" pid="${goodsCategory.parent.id}">${goodsCategory.name}</option>
+                                                    <option style="display:none;" value="${goodsCategory.id}"
+                                                            pid="${goodsCategory.parent.id}">${goodsCategory.name}</option>
                                                 </#if>
                                             </#if>
                                         </#list>
@@ -121,13 +129,14 @@
                             <span>优惠券</span></div>
                         <div class="form-value">
                             <div class="form-input-wr">
-                                <select id="discountType" name="discountType" style="width: 80%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;">
-                                <#if student.discountCoupon == 1>
-                                    <option value="0">--选择优惠券--</option>
-                                    <option value="1">--10元优惠券--</option>
-                                <#else>
-                                    <option value="-1">--暂无优惠券--</option>
-                                </#if>
+                                <select id="discountType" name="discountType"
+                                        style="width: 80%;height: 28px;color: rgb(68, 68, 68);font-size: 1.17em;line-height: 28px;background-color: transparent;">
+                                    <#if student.discountCoupon == 1>
+                                        <option value="0">--选择优惠券--</option>
+                                        <option value="1">--10元优惠券--</option>
+                                    <#else>
+                                        <option value="-1">--暂无优惠券--</option>
+                                    </#if>
                                 </select>
                             </div>
                         </div>
@@ -138,11 +147,13 @@
                             <span>实际价格</span></div>
                         <div class="form-value">
                             <div class="form-input-wr">
-                                <input class="price required" value="${goods.sellPrice}" type="number" id="payPrice"  readonly></div>
+                                <input class="price required" value="${goods.sellPrice}" type="number" id="payPrice"
+                                       readonly></div>
                         </div>
                     </div>
 
-                    <input class="ensure_to_buy_button" id="submit-btn" type="button" onclick="ensure_to_buy(${goods.id})" value="确定"/>
+                    <input class="ensure_to_buy_button" id="submit-btn" type="button"
+                           onclick="ensure_to_buy(${goods.id})" value="确定"/>
 
                 </div>
             </div>
@@ -152,11 +163,11 @@
 </div>
 <#include "../common/right_menu.ftl"/>
 <#include "../common/bottom_footer.ftl"/>
-<script  src="/home/js/jquery-3.1.1.min.js"></script>
+<script src="/home/js/jquery-3.1.1.min.js"></script>
 <script src="/home/js/common.js"></script>
 <script src="/home/js/add.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#cid").change(function () {
             var cid = $(this).val();
             $("#cid2 option[value='-1']").prop("selected", true);
@@ -172,9 +183,9 @@
             var discountType = $(this).val();
             var sellPrice = '${goods.sellPrice}'
             var discounts = sellPrice - 10;
-            if(discountType == 1){
+            if (discountType == 1) {
                 $("#payPrice").val(discounts)
-            }else{
+            } else {
                 $("#payPrice").val(sellPrice)
 
             }
@@ -185,34 +196,36 @@
         var discountType = $("#discountType").val();
         var place = $("#place").val().trim();
 
-        if(place.length == 0){
+        if (place.length == 0) {
             alert('收货地址不能为空！');
             return;
         }
 
         $.ajax({
-            url:'to_buy',
-            type:'post',
-            data:{
-                discountType:discountType,
-                place:place,
-                goodsId:goodsId
+            url: 'to_buy',
+            type: 'post',
+            data: {
+                discountType: discountType,
+                place: place,
+                goodsId: goodsId
             },
-            dataType:'json',
-            success:function (data) {
-                if(data.code == 0){
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 0) {
                     alert("购买成功!")
                     window.location.href = '/home/index/index';
-                }else{
+
+                } else {
                     alert(data.msg);
                 }
             },
-            error:function(data){
+            error: function (data) {
                 alert('网络错误!');
             }
         })
 
     }
 </script>
+</body>
 </html>
 

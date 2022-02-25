@@ -162,6 +162,7 @@ public class CodeMsg {
 	//购买错误码
 	public static CodeMsg HOME_ORDER_FORM_SAVE_ERROR = new CodeMsg(-70000,"购买失败，请联系管理员！");
 	public static CodeMsg HOME_DISCOUNT_COUPON_ERROR = new CodeMsg(-70001,"已无优惠券！");
+	public static CodeMsg HOME_BALANCE_LOW_ERROR = new CodeMsg(-70002,"余额不足");
 
 	//充值错误
 	public static CodeMsg HOME_AMOUNT_ERROR = new CodeMsg(-80000,"充值金额必须大于0!");

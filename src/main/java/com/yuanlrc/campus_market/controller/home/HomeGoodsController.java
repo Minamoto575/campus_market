@@ -168,26 +168,26 @@ public class HomeGoodsController {
 		if(discountType == 1 && student.getDiscountCoupon() == Student.NOT_COUPON){
 			return Result.error(CodeMsg.HOME_DISCOUNT_COUPON_ERROR);
 		}
-
-		orderForm.setSellPrice(goods.getSellPrice());
-
 		//余额不足
 		if(student.getBalance()<goods.getSellPrice()){
-			//
+			return Result.error(CodeMsg.HOME_BALANCE_LOW_ERROR);
 		}
 
-
+		orderForm.setSellPrice(goods.getSellPrice());
 		if(orderFormService.save(orderForm,student,discountType,goods) == null){
 			return Result.error(CodeMsg.HOME_ORDER_FORM_SAVE_ERROR);
 		}
 
 		//扣余额 新增记录交易
-		student.setBalance(student.getBalance()-goods.getBuyPrice());
+		student.setBalance(student.getBalance()-goods.getSellPrice());
 		studentService.save(student);
 		Consumption consumption = new Consumption();
 		consumption.setStudent(student);
-		consumption.setAmount(goods.getBuyPrice());
+		consumption.setAmount(goods.getSellPrice());
 		consumptionService.save(consumption);
+
+		//更新前端展示的余额
+		SessionUtil.set(SessionConstant.SESSION_STUDENT_LOGIN_KEY, student);
 
 		return Result.success(true);
 	}
