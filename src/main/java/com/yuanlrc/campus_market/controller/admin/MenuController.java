@@ -1,7 +1,12 @@
 package com.yuanlrc.campus_market.controller.admin;
 
-import java.util.List;
-
+import com.yuanlrc.campus_market.bean.CodeMsg;
+import com.yuanlrc.campus_market.bean.Result;
+import com.yuanlrc.campus_market.entity.admin.Menu;
+import com.yuanlrc.campus_market.service.admin.MenuService;
+import com.yuanlrc.campus_market.service.admin.OperaterLogService;
+import com.yuanlrc.campus_market.util.MenuUtil;
+import com.yuanlrc.campus_market.util.ValidateEntityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,13 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yuanlrc.campus_market.bean.CodeMsg;
-import com.yuanlrc.campus_market.bean.Result;
-import com.yuanlrc.campus_market.entity.admin.Menu;
-import com.yuanlrc.campus_market.service.admin.MenuService;
-import com.yuanlrc.campus_market.service.admin.OperaterLogService;
-import com.yuanlrc.campus_market.util.MenuUtil;
-import com.yuanlrc.campus_market.util.ValidateEntityUtil;
+import java.util.List;
 
 /**
  * 后台菜单管理控制器
@@ -109,10 +108,10 @@ public class MenuController {
 	}
 	
 	/**
-	 * 菜单编辑页面表单提交处理
-	 * @param request
+	 * @description 菜单编辑页面表单提交处理
 	 * @param menu
-	 * @return
+	 * @author kuang
+	 * @date 2022/3/1
 	 */
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
 	@ResponseBody
@@ -154,10 +153,10 @@ public class MenuController {
 	}
 	
 	/**
-	 * 删除菜单信息
-	 * @param request
+	 * @description 删除菜单信息
 	 * @param id
-	 * @return
+	 * @author kuang
+	 * @date 2022/3/1
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody

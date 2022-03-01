@@ -11,11 +11,13 @@ import com.yuanlrc.campus_market.service.common.ConsumptionService;
 import com.yuanlrc.campus_market.service.common.RechargeService;
 import com.yuanlrc.campus_market.service.common.StudentService;
 import com.yuanlrc.campus_market.util.SessionUtil;
+import com.yuanlrc.campus_market.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author kuang
@@ -38,67 +40,88 @@ public class MoneyController {
     private final static String RECHARGE = "recharge";
 
     /**
-     * @description 获取消费记录
+     * @description 管理员获取消费记录
      * @param  model
-     * @param pageBean
+     * @param  pageBean
+     * @param studentSn
      * @author kuang
-     * @date 2022/2/25
+     * @date 2022/3/1
      */
     @GetMapping("/consumption")
-    public String listConsumption(Model model, PageBean<Consumption> pageBean) {
+    public String listConsumption(Model model,PageBean<Consumption> pageBean,
+                                  @RequestParam(value="studentSn",required=false) String studentSn) {
+        // 验证权限
         User user  = (User) SessionUtil.get(SessionConstant.SESSION_USER_LOGIN_KEY);
         if(user==null){
             return "/system/login";
         }
-        model.addAttribute("pageBean",consumptionService.listAll(pageBean));
+        // 查询
+
+        if(StringUtil.isBlank(studentSn)){
+            model.addAttribute("pageBean",consumptionService.listAll(pageBean));
+            model.addAttribute("sn",null);
+        }else{
+            Student student = studentService.findBySn(studentSn);
+            if(student==null){
+                student = new Student();
+                student.setId((long) -1);
+            }
+            model.addAttribute("pageBean",consumptionService.listByStudent(pageBean,student));
+            model.addAttribute("sn",studentSn);
+        }
+        model.addAttribute("title","消费记录");
+
         return "admin/money/consumption";
     }
 
 
     /**
-     * @description
+     * @description  管理员获取充值记录
      * @param  model
      * @param  pageBean
      * @param recharge
      * @author kuang
      * @date 2022/2/28
      */
-
-    // @RequestParam(value="studentSn", required=false) String studentSn,
-    // @RequestParam(value="userName",required=false) String userName
     @GetMapping("/recharge")
     public String listRecharge(Model model, PageBean<Recharge> pageBean,Recharge recharge) {
+
+        // 验证权限
         User userLogin  = (User) SessionUtil.get(SessionConstant.SESSION_USER_LOGIN_KEY);
         if(userLogin==null){
             return "/system/login";
         }
 
+        User user = recharge.getUser();
+        Student student = recharge.getStudent();
 
-        if(recharge.getStudent()!=null&&recharge.getStudent().getSn()!=null){
-            Student student = studentService.findBySn(recharge.getStudent().getSn());
-            if(student!=null){
-                recharge.setStudent(student);
+        // 获取对应的学生
+        if(student!=null&&!StringUtil.isBlank(student.getSn())){
+            Student studentFound = studentService.findBySn(student.getSn());
+            if(studentFound!=null){
+                recharge.setStudent(studentFound);
+            }
+        }
+        // 获取对应的管理员
+        if(user!=null&&!StringUtil.isBlank(user.getUsername())){
+            User userFound = userService.findByUsername(user.getUsername());
+            if(userFound!=null){
+                recharge.setUser(userFound);
             }
         }
 
-        if(recharge.getUser()!=null&&recharge.getUser().getUsername()!=null){
-            User user = userService.findByUsername(recharge.getUser().getUsername());
-            if(user!=null){
-                recharge.setUser(user);
-            }
-        }
+        // 更新用户和学生
+        user = recharge.getUser();
+        student = recharge.getStudent();
 
-        System.out.println(recharge.getStudent());
-        System.out.println(recharge.getUser());
-
+        // 查询
         model.addAttribute("title", "充值记录");
-        model.addAttribute("sn",recharge.getStudent()==null?null:recharge.getStudent().getSn());
-        model.addAttribute("name",recharge.getUser()==null?null:recharge.getUser().getUsername());
-
-        if(recharge.getStudent()!=null){
-            model.addAttribute("pageBean",rechargeService.listByStudent(pageBean,recharge.getStudent()));
-        }else if(recharge.getUser()!=null){
-            model.addAttribute("pageBean",rechargeService.listByUser(pageBean,recharge.getUser()));
+        model.addAttribute("sn",student==null?null:student.getSn());
+        model.addAttribute("name",user==null?null:user.getUsername());
+        if(student!=null&&!StringUtil.isBlank(student.getSn())){
+            model.addAttribute("pageBean",rechargeService.listByStudent(pageBean,student));
+        }else if(user!=null&&!StringUtil.isBlank(user.getUsername())){
+            model.addAttribute("pageBean",rechargeService.listByUser(pageBean,user));
         }else{
             model.addAttribute("pageBean",rechargeService.listAll(pageBean));
         }

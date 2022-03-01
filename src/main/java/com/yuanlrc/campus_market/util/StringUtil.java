@@ -1,22 +1,16 @@
 package com.yuanlrc.campus_market.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.alibaba.fastjson.JSONObject;
+import com.yuanlrc.campus_market.bean.CodeMsg;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.alibaba.fastjson.JSONObject;
-import com.yuanlrc.campus_market.bean.CodeMsg;
 
 /**
  * 项目通用工具类
@@ -148,4 +142,7 @@ public class StringUtil {
 		}
 	}
 
+	public static  boolean isBlank(String s){
+		return s==null||s.equals("");
+	}
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, goodsCategory-scalable=no"/>
-    <title>${siteName!""}|消费记录-${title!""}</title>
+    <title>${title!""}</title>
 
     <#include "../common/header.ftl"/>
     <style>
@@ -42,24 +42,22 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-toolbar clearfix">
-                                <form class="pull-right search-bar" method="get" action="list" role="form">
+                                <form class="pull-right search-bar" method="get" action="consumption" role="form">
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <button class="btn btn-default dropdown-toggle" id="search-btn"
                                                     data-toggle="dropdown" type="button" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                <#if sn??>学生学号<#elseif name??>图书名称<#else>搜索条件</#if> <span
-                                                        class="caret"></span>
+                                                    aria-expanded="false">学生学号
+                                                <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a tabindex="-1" href="javascript:void(0)" data-field="student.sn">学生学号</a>
-                                                </li>
-                                                <li><a tabindex="-1" href="javascript:void(0)" data-field="goods.name">图书名称</a>
+                                                <li><a tabindex="-1" href="javascript:void(0)"
+                                                       data-field="studentSn">学生学号</a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <input type="text" class="form-control" value="${name!sn!""}" id="search-value"
-                                               name="<#if sn??>student.sn<#else>goods.name</#if>" placeholder="请输入搜索值">
+                                               name="studentSn" placeholder="请输入搜索值">
                                         <span class="input-group-btn">
                       <button class="btn btn-primary" type="submit">搜索</button>
                     </span>
@@ -108,8 +106,7 @@
                                             <li class="disabled"><span>«</span></li>
                                         <#else>
                                             <li>
-                                                <a href="consumption?<#if sn??>student.sn<#else>goods
-                                                .name</#if>=${name!sn!""}&currentPage=1">«</a>
+                                                <a href="consumption<#if sn??>?studentSn=${sn}</#if>">«</a>
                                             </li>
                                         </#if>
                                         <#list pageBean.currentShowPage as showPage>
@@ -117,7 +114,8 @@
                                                 <li class="active"><span>${showPage}</span></li>
                                             <#else>
                                                 <li>
-                                                    <a href="list?<#if sn??>student.sn<#else>goods.name</#if>=${name!sn!""}&currentPage=${showPage}">${showPage}</a>
+                                                    <a href="consumption?<#if
+                                                    sn??>studentSn=${sn}&</#if>currentPage=${showPage}">${showPage}</a>
                                                 </li>
                                             </#if>
                                         </#list>
@@ -125,7 +123,8 @@
                                             <li class="disabled"><span>»</span></li>
                                         <#else>
                                             <li>
-                                                <a href="list?<#if sn??>student.sn<#else>goods.name</#if>=${name!sn!""}&currentPage=${pageBean.totalPage}">»</a>
+                                                <a href="consumption?<#if
+                                                sn??>studentSn=${sn}&</#if>currentPage=${pageBean.totalPage}">»</a>
                                             </li>
                                         </#if>
                                         <li><span>共${pageBean.totalPage}页,${pageBean.total}条数据</span></li>
