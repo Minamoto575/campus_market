@@ -192,4 +192,21 @@ public class HomeGoodsController {
 		return Result.success(true);
 	}
 
+	/**
+	 * @description 查看发布者
+	 * @param  sn
+	 * @param model
+	 * @author kuang
+	 * @date 2022/3/1
+	 */
+	@RequestMapping(value="/publisher")
+	public String publisher(@RequestParam(name="sn",required=true)String sn,Model model){
+		Student student = studentService.findBySn(sn);
+		if(student==null){
+			model.addAttribute("msg", "用户不存在！");
+			return "error/runtime_error";
+		}
+		model.addAttribute("student",student);
+		return "home/goods/publisher";
+	}
 }

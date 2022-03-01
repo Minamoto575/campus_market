@@ -130,12 +130,24 @@ public class MoneyController {
     }
 
 
+    /**
+     * @description 充值
+     * @param model
+     * @author kuang
+     * @date 2022/3/1
+     */
     @RequestMapping(value="/add",method=RequestMethod.GET)
     public String add(Model model){
-        model.addAttribute("title","菜单列表");
+        model.addAttribute("title","充值记录");
         return "admin/money/add";
     }
 
+    /**
+     * @description 充值
+     * @param recharge
+     * @author kuang
+     * @date 2022/3/1
+     */
     @PostMapping("/add")
     @ResponseBody
     public Result<Boolean> add(Recharge recharge){

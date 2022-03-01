@@ -53,6 +53,19 @@
                         	</div>
                         </li>
 
+						<li class="ershou-time">
+							<div class="name">
+								<span >发布者昵称</span>
+							</div>
+							<div class="value">
+								<span class="real-time" id="student_sn">
+									<a href="../goods/publisher?sn=${goods.student.sn!""}">
+										${goods.student.nickname!""}
+									</a>
+								</span>
+							</div>
+						</li>
+
                     </ul>
                     <div id="buy-button" style="margin-top:130px">
             			<a style="color: white;cursor:pointer;" onclick="buy(${goods.id})"> 购买</a>
@@ -134,7 +147,7 @@
     </div>
  	<#include "../common/right_menu.ftl"/>
 	<#include "../common/bottom_footer.ftl"/>
-
+</body>
 <script  src="/home/js/jquery-3.1.1.min.js"></script>
 <script src="/home/js/common.js"></script>
 <script src="/home/js/add.js"></script>

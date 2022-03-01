@@ -137,6 +137,7 @@ public class HomeStudentController {
 	@RequestMapping(value="/publish",method=RequestMethod.POST)
 	@ResponseBody
 	public Result<Boolean> publish(StudentGoods studentGoods){
+
 		CodeMsg validate = ValidateEntityUtil.validate(studentGoods);
 		if(validate.getCode() != CodeMsg.SUCCESS.getCode()){
 			return Result.error(validate);

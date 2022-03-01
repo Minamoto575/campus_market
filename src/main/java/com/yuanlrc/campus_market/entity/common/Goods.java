@@ -1,15 +1,9 @@
 package com.yuanlrc.campus_market.entity.common;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.yuanlrc.campus_market.annotion.ValidateEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.yuanlrc.campus_market.annotion.ValidateEntity;
+import javax.persistence.*;
 
 /**
  * 图书实体类
@@ -33,7 +27,11 @@ public class Goods extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 
-	
+
+	@ManyToOne
+	@JoinColumn(name="student_id")
+	private Student student;//所属学生
+
 	@ValidateEntity(required=true,requiredLeng=true,minLength=1,maxLength=30,errorRequiredMsg="图书名称不能为空!",errorMinLengthMsg="图书名称长度需大于1!",errorMaxLengthMsg="图书名称长度不能大于30!")
 	@Column(name="name",nullable=false,length=32)
 	private String name;//图书名称
@@ -140,18 +138,27 @@ public class Goods extends BaseEntity{
 		this.viewNumber = viewNumber;
 	}
 
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
 	@Override
 	public String toString() {
 		return "Goods{" +
-				"name='" + name + '\'' +
-				", goodsCategory=" + goodsCategory +
-				", buyPrice=" + buyPrice +
-				", sellPrice=" + sellPrice +
-				", photo='" + photo + '\'' +
-				", status=" + status +
-				", recommend=" + recommend +
-				", content='" + content + '\'' +
-				", viewNumber=" + viewNumber +
-				'}';
+			"student=" + student +
+			", name='" + name + '\'' +
+			", goodsCategory=" + goodsCategory +
+			", buyPrice=" + buyPrice +
+			", sellPrice=" + sellPrice +
+			", photo='" + photo + '\'' +
+			", status=" + status +
+			", recommend=" + recommend +
+			", content='" + content + '\'' +
+			", viewNumber=" + viewNumber +
+			'}';
 	}
 }
