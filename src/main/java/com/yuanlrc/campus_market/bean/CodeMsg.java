@@ -165,6 +165,6 @@ public class CodeMsg {
 	public static CodeMsg HOME_BALANCE_LOW_ERROR = new CodeMsg(-70002,"余额不足");
 
 	//充值错误
-	public static CodeMsg HOME_AMOUNT_ERROR = new CodeMsg(-80000,"充值金额必须大于0!");
+	public static CodeMsg ADMIN_AMOUNT_ERROR = new CodeMsg(-80000,"充值金额不合法!");
 
 }

@@ -34,7 +34,7 @@ public class RechargeService {
      * @date 2022/2/23
      */
     public PageBean<Recharge> listAll(PageBean<Recharge> pageBean){
-        Sort sort = Sort.by(Sort.Direction.DESC, "id","createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime","id");
         PageRequest pageable = PageRequest.of(pageBean.getCurrentPage()-1, pageBean.getPageSize(), sort);
         Page<Recharge> findAll = rechargeDao.findAll(pageable);
         pageBean.setContent(findAll.getContent());

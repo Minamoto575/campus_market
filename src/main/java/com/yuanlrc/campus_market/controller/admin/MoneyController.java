@@ -1,6 +1,8 @@
 package com.yuanlrc.campus_market.controller.admin;
 
+import com.yuanlrc.campus_market.bean.CodeMsg;
 import com.yuanlrc.campus_market.bean.PageBean;
+import com.yuanlrc.campus_market.bean.Result;
 import com.yuanlrc.campus_market.constant.SessionConstant;
 import com.yuanlrc.campus_market.entity.admin.User;
 import com.yuanlrc.campus_market.entity.common.Consumption;
@@ -15,9 +17,7 @@ import com.yuanlrc.campus_market.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kuang
@@ -128,5 +128,51 @@ public class MoneyController {
 
         return "admin/money/recharge";
     }
+
+
+    @RequestMapping(value="/add",method=RequestMethod.GET)
+    public String add(Model model){
+        model.addAttribute("title","菜单列表");
+        return "admin/money/add";
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public Result<Boolean> add(Recharge recharge){
+        // 验证管理员权限
+        User userLogin  = (User) SessionUtil.get(SessionConstant.SESSION_USER_LOGIN_KEY);
+        if(userLogin==null){
+            return Result.error(CodeMsg.ADMIN_NO_RIGHT);
+        }
+
+        // 验证学生
+        Student student = recharge.getStudent();
+        if(student==null||StringUtil.isBlank(student.getSn())){
+            return Result.error(CodeMsg.ADMIN_STUDENT_NO_EXIST);
+        }
+        student = studentService.findBySn(student.getSn());
+        if(student==null){
+            return Result.error(CodeMsg.ADMIN_STUDENT_NO_EXIST);
+        }
+
+        // 验证充值金额
+        if(recharge.getAmount()<=0){
+            return Result.error(CodeMsg.ADMIN_AMOUNT_ERROR);
+        }
+
+        // 记录充值
+        recharge.setUser(userLogin);
+        recharge.setStudent(student);
+        recharge.setType("线下充值");
+        rechargeService.save(recharge);
+
+        // 更新学生余额
+        student.setBalance(student.getBalance()+recharge.getAmount());
+        studentService.save(student);
+
+        return Result.success(true);
+    }
+
+
 
 }
