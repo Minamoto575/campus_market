@@ -17,7 +17,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
  *
  */
 @Entity
-@Table(name="ylrc_comment")
+@Table(name="comment")
 @EntityListeners(AuditingEntityListener.class)
 public class Comment extends BaseEntity{
 

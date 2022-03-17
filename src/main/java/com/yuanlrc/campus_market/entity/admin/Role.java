@@ -19,7 +19,7 @@ import com.yuanlrc.campus_market.entity.common.BaseEntity;
  *
  */
 @Entity
-@Table(name="ylrc_role")
+@Table(name="role")
 @EntityListeners(AuditingEntityListener.class)
 public class Role extends BaseEntity{
 

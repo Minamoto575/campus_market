@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 订单实体类
  */
 @Entity
-@Table(name="ylrc_order_form")
+@Table(name="order_form")
 @EntityListeners(AuditingEntityListener.class)
 public class OrderForm extends BaseEntity{
 

@@ -13,7 +13,7 @@ import com.yuanlrc.campus_market.entity.common.BaseEntity;
 
 
 @Entity
-@Table(name="ylrc_operater_log")
+@Table(name="operater_log")
 @EntityListeners(AuditingEntityListener.class)
 public class OperaterLog extends BaseEntity{
 	

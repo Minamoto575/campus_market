@@ -11,7 +11,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name="ylrc_goods")
+@Table(name="goods")
 @EntityListeners(AuditingEntityListener.class)
 public class Goods extends BaseEntity{
 

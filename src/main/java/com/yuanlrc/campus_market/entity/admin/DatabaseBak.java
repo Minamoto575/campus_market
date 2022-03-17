@@ -2,17 +2,17 @@ package com.yuanlrc.campus_market.entity.admin;
 /**
  * 数据库备份记录实体类
  */
+
+import com.yuanlrc.campus_market.entity.common.BaseEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.yuanlrc.campus_market.entity.common.BaseEntity;
-
 @Entity
-@Table(name="ylrc_database_bak")
+@Table(name="database_bak")
 @EntityListeners(AuditingEntityListener.class)
 public class DatabaseBak extends BaseEntity{
 
@@ -49,12 +49,6 @@ public class DatabaseBak extends BaseEntity{
 				+ "]";
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

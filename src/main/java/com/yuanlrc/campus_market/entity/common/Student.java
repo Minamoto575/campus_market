@@ -14,7 +14,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="ylrc_studnet")
+@Table(name="studnet")
 @EntityListeners(AuditingEntityListener.class)
 public class Student extends BaseEntity{
 

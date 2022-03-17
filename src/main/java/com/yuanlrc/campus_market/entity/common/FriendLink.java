@@ -15,7 +15,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
  *
  */
 @Entity
-@Table(name="ylrc_friend_link")
+@Table(name="friend_link")
 @EntityListeners(AuditingEntityListener.class)
 public class FriendLink extends BaseEntity{
 

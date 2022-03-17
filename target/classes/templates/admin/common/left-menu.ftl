@@ -1,6 +1,11 @@
 <nav class="sidebar-main">
   <ul class="nav nav-drawer">
-    <li class="nav-item"> <a href="/system/index"><i class="mdi mdi-home"></i> 后台首页</a> </li>
+    <li class="nav-item">
+		<a href="/system/index">
+			<i class="mdi mdi-home">
+			</i> 后台首页
+		</a>
+	</li>
     <#if userTopMenus??>
     <#list userTopMenus as userTopMenu>
     	<li class="nav-item nav-item-has-subnav">

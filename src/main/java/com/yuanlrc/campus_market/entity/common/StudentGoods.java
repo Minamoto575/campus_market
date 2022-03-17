@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 学生图书
  */
 @Entity
-@Table(name="ylrc_student_goods")
+@Table(name="student_goods")
 @EntityListeners(AuditingEntityListener.class)
 public class StudentGoods extends BaseEntity{
 

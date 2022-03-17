@@ -1,15 +1,9 @@
 package com.yuanlrc.campus_market.entity.common;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.yuanlrc.campus_market.annotion.ValidateEntity;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.yuanlrc.campus_market.annotion.ValidateEntity;
+import javax.persistence.*;
 
 /**
  * 求购图书实体类
@@ -17,7 +11,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
  *
  */
 @Entity
-@Table(name="ylrc_wanted_goods")
+@Table(name="wanted_goods")
 @EntityListeners(AuditingEntityListener.class)
 public class WantedGoods extends BaseEntity{
 

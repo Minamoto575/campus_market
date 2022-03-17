@@ -15,7 +15,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
  *
  */
 @Entity
-@Table(name="ylrc_site_setting")
+@Table(name="site_setting")
 @EntityListeners(AuditingEntityListener.class)
 public class SiteSetting extends BaseEntity{
 

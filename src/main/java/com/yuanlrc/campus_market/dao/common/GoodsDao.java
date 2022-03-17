@@ -1,18 +1,13 @@
 package com.yuanlrc.campus_market.dao.common;
 
-import java.util.List;
-
+import com.yuanlrc.campus_market.entity.common.Goods;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-
-/**
- * 图书数据库操作dao
- */
-import com.yuanlrc.campus_market.entity.common.Goods;
+import java.util.List;
 
 @Repository
 public interface GoodsDao extends JpaRepository<Goods, Long>,JpaSpecificationExecutor<Goods> {
@@ -31,7 +26,7 @@ public interface GoodsDao extends JpaRepository<Goods, Long>,JpaSpecificationExe
 	 * @param pageSize
 	 * @return
 	 */
-	@Query(value="SELECT * from ylrc_goods where goods_category_id IN :cids and `status` = 1 ORDER BY create_time desc,recommend desc limit :offset,:pageSize",nativeQuery=true)
+	@Query(value="SELECT * from goods where goods_category_id IN :cids and `status` = 1 ORDER BY create_time desc,recommend desc limit :offset,:pageSize",nativeQuery=true)
 	List<Goods> findList(@Param("cids")List<Long> cids,@Param("offset")Integer offset,@Param("pageSize")Integer pageSize);
 	
 	/**
@@ -39,7 +34,7 @@ public interface GoodsDao extends JpaRepository<Goods, Long>,JpaSpecificationExe
 	 * @param cids
 	 * @return
 	 */
-	@Query(value="SELECT count(*) from ylrc_goods where goods_category_id IN :cids and `status` = 1 ",nativeQuery=true)
+	@Query(value="SELECT count(*) from goods where goods_category_id IN :cids and `status` = 1 ",nativeQuery=true)
 	Long getTotalCount(@Param("cids")List<Long> cids);
 	
 	/**
@@ -55,6 +50,6 @@ public interface GoodsDao extends JpaRepository<Goods, Long>,JpaSpecificationExe
 	 * @param name
 	 * @return
 	 */
-	@Query(value="select * from ylrc_goods where name like %:name%",nativeQuery=true)
+	@Query(value="select * from goods where name like %:name%",nativeQuery=true)
 	List<Goods> findListByName(@Param("name")String name);
 }

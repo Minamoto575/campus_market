@@ -16,11 +16,11 @@
                           <#if ylrc_auth!= 1>
     <div class="top-nav" id="show-copyright">
         <div class="container fn-clear" align="center">
-            <p style="color:red;font-size:16px;">
-                本系统由<a href="www.yuanlrc.com/?fuid=6666">【猿来入此】</a>发布，请认准官网获取，官网获取的正版源码提供免费更新升级！
-                <a href="javascript:alert('请登录后台首页填写订单号进行验证，验证通过后刷新此页面，版权信息会自动消失！')" id="order-auth-btn">点此去版权</a>
-                <a href="www.yuanlrc.com/?fuid=6666/">点此进入官网</a>
-            </p>
+<#--            <p style="color:red;font-size:16px;">-->
+<#--                本系统由<a href="www.yuanlrc.com/?fuid=6666">【猿来入此】</a>发布，请认准官网获取，官网获取的正版源码提供免费更新升级！-->
+<#--                <a href="javascript:alert('请登录后台首页填写订单号进行验证，验证通过后刷新此页面，版权信息会自动消失！')" id="order-auth-btn">点此去版权</a>-->
+<#--                <a href="www.yuanlrc.com/?fuid=6666/">点此进入官网</a>-->
+<#--            </p>-->
         </div>
     </div>
                           </#if>
@@ -89,10 +89,12 @@
         </#if>
     </div>
 </div>
+</body>
 <div class="return-to-top"><a href="#"></a></div><!--返回顶部-->
  	<#include "../common/right_menu.ftl"/>
 	<#include "../common/bottom_footer.ftl"/> 
 <script  src="/home/js/jquery-3.1.1.min.js"></script>
 <script src="/home/js/common.js"></script>
 <script src="/home/js/index.js"></script>
+
 </html>

@@ -18,7 +18,7 @@ import com.yuanlrc.campus_market.entity.common.BaseEntity;
  *
  */
 @Entity
-@Table(name="ylrc_menu")
+@Table(name="menu")
 @EntityListeners(AuditingEntityListener.class)
 public class Menu extends BaseEntity{
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
  * @date 2022/2/22  15:48
  */
 @Entity
-@Table(name="ylrc_consumption")
+@Table(name="consumption")
 @EntityListeners(AuditingEntityListener.class)
 public class Consumption extends BaseEntity {
 

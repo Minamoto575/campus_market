@@ -17,7 +17,7 @@ import com.yuanlrc.campus_market.annotion.ValidateEntity;
  *
  */
 @Entity
-@Table(name="ylrc_goods_category")
+@Table(name="goods_category")
 @EntityListeners(AuditingEntityListener.class)
 public class GoodsCategory extends BaseEntity{
 

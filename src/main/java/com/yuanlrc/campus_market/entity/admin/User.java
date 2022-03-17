@@ -1,16 +1,10 @@
 package com.yuanlrc.campus_market.entity.admin;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import com.yuanlrc.campus_market.annotion.ValidateEntity;
 import com.yuanlrc.campus_market.entity.common.BaseEntity;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 
 /**
  * 后台用户实体类
@@ -18,7 +12,7 @@ import com.yuanlrc.campus_market.entity.common.BaseEntity;
  *
  */
 @Entity
-@Table(name="ylrc_user")
+@Table(name="user")
 @EntityListeners(AuditingEntityListener.class)
 public class User extends BaseEntity{
 
