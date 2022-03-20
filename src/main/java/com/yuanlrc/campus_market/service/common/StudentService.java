@@ -58,7 +58,7 @@ public class StudentService {
 	public PageBean<Student> findlist(PageBean<Student> pageBean,Student student){
 		ExampleMatcher exampleMatcher = ExampleMatcher.matching();
 		exampleMatcher = exampleMatcher.withMatcher("sn", GenericPropertyMatchers.contains());
-		exampleMatcher = exampleMatcher.withIgnorePaths("status","discountCoupon");
+		exampleMatcher = exampleMatcher.withIgnorePaths("status","discountCoupon","balance");
 		Example<Student> example = Example.of(student, exampleMatcher);
 		Sort sort = Sort.by(Direction.DESC, "createTime");
 		PageRequest pageable = PageRequest.of(pageBean.getCurrentPage()-1, pageBean.getPageSize(), sort);
