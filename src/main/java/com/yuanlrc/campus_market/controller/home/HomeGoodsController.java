@@ -157,6 +157,7 @@ public class HomeGoodsController {
 		}
 		Student student = studentService.findById(loginedStudent.getId());
 		Goods goods = goodsService.findById(goodsId);
+
 		if(goods == null){
 			return Result.error(CodeMsg.HOME_STUDENT_GOODS_NO_EXIST);
 		}
@@ -178,9 +179,16 @@ public class HomeGoodsController {
 			return Result.error(CodeMsg.HOME_ORDER_FORM_SAVE_ERROR);
 		}
 
-		//扣余额 新增记录交易
+		// 扣买家余额
 		student.setBalance(student.getBalance()-goods.getSellPrice());
 		studentService.save(student);
+
+		// 加卖家余额
+		Student seller =  goods.getStudent();
+		seller.setBalance(seller.getBalance()+goods.getSellPrice());
+		studentService.save(seller);
+
+		// 新增记录交易
 		Consumption consumption = new Consumption();
 		consumption.setStudent(student);
 		consumption.setAmount(goods.getSellPrice());
